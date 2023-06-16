@@ -16,6 +16,57 @@ namespace Municipality.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
 
+            modelBuilder.Entity("Municipality.Entities.AgriculturalLand", b =>
+                {
+                    b.Property<int>("LandQueueNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AgricultureAreaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SowingDurationInHours")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("LandQueueNumber");
+
+                    b.HasIndex("AgricultureAreaId");
+
+                    b.ToTable("AgriculturalLands");
+                });
+
+            modelBuilder.Entity("Municipality.Entities.AgricultureArea", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Area")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("VillageId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("AgricultureAreas");
+                });
+
             modelBuilder.Entity("Municipality.Entities.District", b =>
                 {
                     b.Property<int>("Id")
@@ -90,6 +141,24 @@ namespace Municipality.Migrations
                     b.ToTable("Villages");
                 });
 
+            modelBuilder.Entity("Municipality.Entities.AgriculturalLand", b =>
+                {
+                    b.HasOne("Municipality.Entities.AgricultureArea", null)
+                        .WithMany("AgriculturalLands")
+                        .HasForeignKey("AgricultureAreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Municipality.Entities.AgricultureArea", b =>
+                {
+                    b.HasOne("Municipality.Entities.Village", null)
+                        .WithMany("AgricultureAreas")
+                        .HasForeignKey("VillageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Municipality.Entities.District", b =>
                 {
                     b.HasOne("Municipality.Entities.Region", null)
@@ -108,6 +177,11 @@ namespace Municipality.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Municipality.Entities.AgricultureArea", b =>
+                {
+                    b.Navigation("AgriculturalLands");
+                });
+
             modelBuilder.Entity("Municipality.Entities.District", b =>
                 {
                     b.Navigation("Villages");
@@ -116,6 +190,11 @@ namespace Municipality.Migrations
             modelBuilder.Entity("Municipality.Entities.Region", b =>
                 {
                     b.Navigation("Districts");
+                });
+
+            modelBuilder.Entity("Municipality.Entities.Village", b =>
+                {
+                    b.Navigation("AgricultureAreas");
                 });
 #pragma warning restore 612, 618
         }
