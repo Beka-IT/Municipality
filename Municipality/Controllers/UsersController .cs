@@ -7,7 +7,7 @@ namespace Municipality.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
