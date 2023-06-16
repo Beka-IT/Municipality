@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text;
 
-namespace Municipality.Middlewares
+namespace Municipality.Middleware
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {

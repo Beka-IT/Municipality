@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Municipality.Contracts;
 using Municipality.Data;
-using Municipality.Middlewares;
+using Municipality.Middleware;
 using Municipality.Services;
 
 var builder = WebApplication.CreateBuilder(args);
