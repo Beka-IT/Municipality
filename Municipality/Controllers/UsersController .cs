@@ -18,8 +18,8 @@ namespace Municipality.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateModel model)
+        [HttpPost]
+        public async Task<IActionResult> SignIn([FromBody] AuthenticateModel model)
         {
             var user = await _userService.Authenticate(model.Pin, model.Password);
 
