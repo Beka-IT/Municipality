@@ -16,6 +16,8 @@ namespace Municipality.Data
         public DbSet<IrrigationPayment> IrrigationPayments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Round> Rounds { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
