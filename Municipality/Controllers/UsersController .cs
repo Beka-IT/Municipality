@@ -21,10 +21,10 @@ namespace Municipality.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateModel model)
         {
-            var user = await _userService.Authenticate(model.Login, model.Password);
+            var user = await _userService.Authenticate(model.Pin, model.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "Pin or password is incorrect" });
 
             return Ok(user);
         }

@@ -12,6 +12,10 @@ namespace Municipality.Data
         public DbSet<Village> Villages { get; set; }
         public DbSet<AgricultureArea> AgricultureAreas { get; set; }
         public DbSet<AgriculturalLand> AgriculturalLands { get; set; }
+        public DbSet<Irrigation> Irrigations { get; set; }
+        public DbSet<IrrigationPayment> IrrigationPayments { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Round> Rounds { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }

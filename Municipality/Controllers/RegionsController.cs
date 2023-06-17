@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,16 @@ public class RegionsController : ControllerBase
         _db = context;
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public Village GetVillage(int id)
+    {
+        return _db.Villages
+            .Include(x => x.AgricultureAreas)
+            .ThenInclude(x => x.AgriculturalLands)
+            .FirstOrDefault(x => x.Id == id);
+    }
+    
     [HttpGet]
     [AllowAnonymous]
     public IEnumerable<Region> GetAll()
