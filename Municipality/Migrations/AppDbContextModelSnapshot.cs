@@ -281,7 +281,7 @@ namespace Municipality.Migrations
 
                     b.HasIndex("PastureId");
 
-                    b.ToTable("PasturePayment");
+                    b.ToTable("PasturePayments");
                 });
 
             modelBuilder.Entity("Municipality.Entities.PastureModule.Pet", b =>
@@ -301,8 +301,9 @@ namespace Municipality.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OwnerPin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
@@ -403,6 +404,9 @@ namespace Municipality.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("DistrictId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPastureTime")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")

@@ -21,7 +21,7 @@ namespace Municipality.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Pasture> Pastures { get; set; }
-        public DbSet<PasturePayment> PasturePayment { get; set; }
+        public DbSet<PasturePayment> PasturePayments { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }

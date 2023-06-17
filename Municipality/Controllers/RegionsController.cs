@@ -38,4 +38,13 @@ public class RegionsController : ControllerBase
             .ThenInclude(x => x.Villages)
             .ToArray();
     }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public void StartPastureSeason(int villageId)
+    {
+        var village = _db.Villages.FirstOrDefault(x => x.Id == villageId);
+        village.IsPastureTime = true;
+        _db.SaveChanges();
+    }
 }

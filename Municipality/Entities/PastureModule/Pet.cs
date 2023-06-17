@@ -8,5 +8,5 @@ public class Pet : BaseEntity
     public string Description { get; set; }
     public int Age { get; set; }
     public PastureType Type { get; set; }
-    public int OwnerId { get; set; }
+    public string OwnerPin { get; set; }
 }

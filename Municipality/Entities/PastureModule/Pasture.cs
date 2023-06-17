@@ -1,3 +1,5 @@
+using Municipality.Enums.Pastures;
+
 namespace Municipality.Entities.PastureModule;
 
 public class Pasture : BaseEntity
