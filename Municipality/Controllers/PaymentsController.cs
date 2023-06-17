@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Municipality.Data;
 using Municipality.Entities;
 using Municipality.Enums;
@@ -28,7 +29,7 @@ public class PaymentsController: ControllerBase
             ReceiptImage = null,
             Type = PaymentStatusType.NotViewed,
             CreatedAt = DateTime.Now,
-            SenderId = model.SenderId
+            SenderPin = model.SenderPin
         };
         
         using (var ms = new MemoryStream())
@@ -46,7 +47,7 @@ public class PaymentsController: ControllerBase
     [HttpGet]
     public IEnumerable<IrrigationPayment> GetAll()
     {
-        return _db.IrrigationPayments.ToArray();
+        return _db.IrrigationPayments.AsNoTracking().ToArray();
     }
     
     [AllowAnonymous]

@@ -8,5 +8,5 @@ public class IrrigationPayment : BaseEntity
     public byte[] ReceiptImage { get; set; }
     public PaymentStatusType Type { get; set; }
     public DateTime? CreatedAt { get; set; }
-    public int SenderId { get; set; }
+    public string SenderPin { get; set; }
 }

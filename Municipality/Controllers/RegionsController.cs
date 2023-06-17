@@ -25,6 +25,7 @@ public class RegionsController : ControllerBase
         return _db.Villages
             .Include(x => x.AgricultureAreas)
             .ThenInclude(x => x.AgriculturalLands)
+            .AsNoTracking()
             .FirstOrDefault(x => x.Id == id);
     }
     
@@ -32,6 +33,9 @@ public class RegionsController : ControllerBase
     [AllowAnonymous]
     public IEnumerable<Region> GetAll()
     {
-        return _db.Regions.Include(x => x.Districts).ThenInclude(x => x.Villages).ToArray();
+        return _db.Regions
+            .Include(x => x.Districts)
+            .ThenInclude(x => x.Villages)
+            .ToArray();
     }
 }

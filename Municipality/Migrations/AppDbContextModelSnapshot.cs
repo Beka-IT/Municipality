@@ -26,8 +26,8 @@ namespace Municipality.Migrations
                     b.Property<int>("AgricultureAreaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Area")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Area")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("OwnerPin")
                         .HasColumnType("TEXT");
@@ -45,8 +45,8 @@ namespace Municipality.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Area")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Area")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -132,8 +132,9 @@ namespace Municipality.Migrations
                         .IsRequired()
                         .HasColumnType("BLOB");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SenderPin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
@@ -149,8 +150,9 @@ namespace Municipality.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Addressee")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AddresseePin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("TEXT");
