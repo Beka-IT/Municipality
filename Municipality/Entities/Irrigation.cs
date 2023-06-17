@@ -10,5 +10,6 @@ public class Irrigation : BaseEntity
     public DateTime EndDate { get; set; }
     public decimal Cost { get; set; }
     public bool IsPaid { get; set; }
+    public bool IsMessageSended { get; set; }
     public IrrigationStatusType Status { get; set; }
 }

@@ -97,6 +97,9 @@ namespace Municipality.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsMessageSended")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsPaid")
                         .HasColumnType("INTEGER");
 

@@ -15,8 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication("BasicAuthentication")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
-                ("BasicAuthentication", null);
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
+        ("BasicAuthentication", null);
 
 builder.Services.AddAuthorization();
 

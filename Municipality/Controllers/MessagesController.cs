@@ -45,22 +45,4 @@ public class MessagesController: ControllerBase
         _db.Messages.Add(message);
         _db.SaveChanges();
     }
-    
-    [AllowAnonymous]
-    [HttpGet]
-    public void SendOverdueMessage(string pin, int irrrigationId)
-    {
-        var cost = _db.Irrigations.Find(irrrigationId).Cost;
-        var user = _db.Users.FirstOrDefault(x => x.Pin == pin);
-        var message = new Message()
-        {
-            AddresseePin = user.Pin,
-            Text = $"Урматтуу, {user.Fullname}!Сиз суугаруу системасын колдонуу учун берилген убакытта толобогондугунуз учун" +
-                   "кезектен очурулдунуз!",
-            CreatedAt = DateTime.Now
-        };
-        
-        _db.Messages.Add(message);
-        _db.SaveChanges();
-    }
 }

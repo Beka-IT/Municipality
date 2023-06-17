@@ -56,6 +56,8 @@ public class PaymentsController: ControllerBase
     {
         var payment = _db.IrrigationPayments.Find(id);
         payment.Type = PaymentStatusType.Adopted;
+        var irrigation = _db.Irrigations.FirstOrDefault(x => x.Id == payment.IrrigationId);
+        irrigation.IsPaid = true;
         _db.SaveChanges();
     }
     
@@ -65,6 +67,16 @@ public class PaymentsController: ControllerBase
     {
         var payment = _db.IrrigationPayments.Find(id);
         payment.Type = PaymentStatusType.Rejected;
+        var user = _db.Users.FirstOrDefault(x => x.Pin == payment.SenderPin);
+        var message = new Message()
+        {
+            AddresseePin = user.Pin,
+            Text = $"Урматтуу, {user.Fullname}!Сиз суугаруу системасын колдонуу учун берилген убакытта толобогондугунуз учун" +
+                   "кезектен очурулдунуз!",
+            CreatedAt = DateTime.Now
+        };
+        
+        _db.Messages.Add(message);
         _db.SaveChanges();
     }
 }
