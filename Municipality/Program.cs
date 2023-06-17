@@ -19,7 +19,18 @@ builder.Services.AddAuthentication("BasicAuthentication")
         ("BasicAuthentication", null);
 
 builder.Services.AddAuthorization();
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
 
+        builder.AllowCredentials()
+            .WithOrigins("http://localhost:3000");
+    });
+});
 builder.Services.AddScoped<IUserService, UserService>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -41,6 +52,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
