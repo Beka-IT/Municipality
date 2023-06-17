@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Municipality.Data;
 using Municipality.Entities;
 using Municipality.Enums;
+using Municipality.Helpers;
 using Municipality.Models;
 
 namespace Municipality.Controllers;
@@ -71,5 +72,41 @@ public class RoundsCotrolller: ControllerBase
             .AsNoTracking()
             .Where(x => x.VillageId == villageId)
             .ToArray();
+    }
+    
+    [HttpGet]
+    public void Stop(int roundId)
+    {
+        var round = _db.Rounds.Find(roundId);
+        round.StoppedAt = DateTime.Now;
+        round.Status = IrrigationStatusType.Stoped;
+        _db.SaveChanges();
+    }
+    
+    [HttpGet]
+    public void Continue(int roundId)
+    {
+        var round = _db.Rounds
+            .Include(x => x.Irrigations)
+            .FirstOrDefault(x => x.Id == roundId);
+        
+        if (round.Status is not IrrigationStatusType.Stoped)
+        {
+            throw new AppException("Кезек токтокогон эмес, ошол себептен улантуу мумкун эмес!");
+        }
+        
+        round.ContinuedAt = DateTime.Now;
+        round.Status = IrrigationStatusType.InProcess;
+        TimeSpan? timeInterval = round.StoppedAt - round.StoppedAt;
+        
+        foreach (var irrigation in round.Irrigations)
+        {
+            irrigation.StartDate = irrigation.StartDate.AddMinutes(timeInterval?.TotalMinutes ?? 0);
+            irrigation.EndDate = irrigation.EndDate.AddMinutes(timeInterval?.TotalMinutes ?? 0);
+            _db.Update(irrigation);
+        }
+
+        round.StoppedAt = round.ContinuedAt = null;
+        _db.SaveChanges();
     }
 }

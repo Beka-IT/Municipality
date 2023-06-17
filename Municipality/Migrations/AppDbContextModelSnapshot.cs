@@ -196,11 +196,17 @@ namespace Municipality.Migrations
                     b.Property<decimal>("CoastForAnHectare")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("ContinuedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("StoppedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
