@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Municipality.Entities;
 using System.Security.Principal;
+using Municipality.Entities.PastureModule;
 
 namespace Municipality.Data
 {
@@ -18,6 +19,9 @@ namespace Municipality.Data
         public DbSet<Round> Rounds { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Pasture> Pastures { get; set; }
+        public DbSet<PasturePayment> PasturePayment { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }

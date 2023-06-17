@@ -225,6 +225,98 @@ namespace Municipality.Migrations
                     b.ToTable("News");
                 });
 
+            modelBuilder.Entity("Municipality.Entities.PastureModule.Pasture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CurrentFreeArea")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("VillageId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("Pastures");
+                });
+
+            modelBuilder.Entity("Municipality.Entities.PastureModule.PasturePayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PastureId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("ReceiptImage")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("SenderPin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PastureId");
+
+                    b.ToTable("PasturePayment");
+                });
+
+            modelBuilder.Entity("Municipality.Entities.PastureModule.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserPin")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserPin");
+
+                    b.ToTable("Pets");
+                });
+
             modelBuilder.Entity("Municipality.Entities.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -360,6 +452,31 @@ namespace Municipality.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Municipality.Entities.PastureModule.Pasture", b =>
+                {
+                    b.HasOne("Municipality.Entities.Village", null)
+                        .WithMany("Pastures")
+                        .HasForeignKey("VillageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Municipality.Entities.PastureModule.PasturePayment", b =>
+                {
+                    b.HasOne("Municipality.Entities.PastureModule.Pasture", null)
+                        .WithMany("PasturePayments")
+                        .HasForeignKey("PastureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Municipality.Entities.PastureModule.Pet", b =>
+                {
+                    b.HasOne("Municipality.Entities.User", null)
+                        .WithMany("Pets")
+                        .HasForeignKey("UserPin");
+                });
+
             modelBuilder.Entity("Municipality.Entities.Round", b =>
                 {
                     b.HasOne("Municipality.Entities.Village", null)
@@ -397,6 +514,11 @@ namespace Municipality.Migrations
                     b.Navigation("Villages");
                 });
 
+            modelBuilder.Entity("Municipality.Entities.PastureModule.Pasture", b =>
+                {
+                    b.Navigation("PasturePayments");
+                });
+
             modelBuilder.Entity("Municipality.Entities.Region", b =>
                 {
                     b.Navigation("Districts");
@@ -407,9 +529,16 @@ namespace Municipality.Migrations
                     b.Navigation("Irrigations");
                 });
 
+            modelBuilder.Entity("Municipality.Entities.User", b =>
+                {
+                    b.Navigation("Pets");
+                });
+
             modelBuilder.Entity("Municipality.Entities.Village", b =>
                 {
                     b.Navigation("AgricultureAreas");
+
+                    b.Navigation("Pastures");
 
                     b.Navigation("Rounds");
 

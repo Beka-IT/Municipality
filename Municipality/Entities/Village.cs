@@ -1,3 +1,5 @@
+using Municipality.Entities.PastureModule;
+
 namespace Municipality.Entities;
 
 public class Village : BaseEntity
@@ -7,4 +9,5 @@ public class Village : BaseEntity
     public ICollection<AgricultureArea>? AgricultureAreas { get; set; }
     public ICollection<User>? Users { get; set; }
     public ICollection<Round>? Rounds { get; set; }
+    public ICollection<Pasture>? Pastures { get; set; }
 }
