@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Municipality.Data;
 using Municipality.Entities;
@@ -5,7 +6,7 @@ using Municipality.Models;
 
 namespace Municipality.Controllers;
 
-[Route("[controller]/[action]")]
+[Microsoft.AspNetCore.Mvc.Route("[controller]/[action]")]
 [ApiController]
 public class NewsController: ControllerBase
 {
@@ -16,7 +17,7 @@ public class NewsController: ControllerBase
         _db = context;
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public News Get(int id)
     {
         return _db.News.Find(id);
