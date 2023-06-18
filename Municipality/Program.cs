@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Municipality.Contracts;
 using Municipality.Data;
 using Municipality.Helpers;
-using Municipality.Middleware;
 using Municipality.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,11 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>
-        ("BasicAuthentication", null);
 
-builder.Services.AddAuthorization();
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
 }));
