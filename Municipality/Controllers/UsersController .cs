@@ -5,7 +5,6 @@ using Municipality.Models;
 
 namespace Municipality.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
     public class UsersController : ControllerBase
@@ -17,7 +16,6 @@ namespace Municipality.Controllers
             _userService = userService;
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> SignIn([FromBody] AuthenticateModel model)
         {
@@ -30,7 +28,6 @@ namespace Municipality.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetAll();
