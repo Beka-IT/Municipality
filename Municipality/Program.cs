@@ -20,18 +20,9 @@ builder.Services.AddAuthentication("BasicAuthentication")
         ("BasicAuthentication", null);
 
 builder.Services.AddAuthorization();
-builder.Services.AddCors(opt =>
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    opt.AddDefaultPolicy(builder =>
-    {
-        builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-
-        builder.AllowCredentials()
-            .WithOrigins("http://localhost:3000");
-    });
-});
+}));
 builder.Services.AddScoped<IUserService, UserService>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -49,11 +40,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()); 
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-app.UseCors();
+
 app.UseAuthorization();
 
 app.MapControllers();
