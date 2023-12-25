@@ -30,7 +30,7 @@ public class NewsController: ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromForm]CreateNewsModel newsRequest )
+    public IActionResult Create([FromBody]CreateNewsModel newsRequest )
     {
         if (newsRequest is null)
         {
@@ -41,16 +41,10 @@ public class NewsController: ControllerBase
         {
             Title = newsRequest.Title,
             Content = newsRequest.Content,
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.Now,
+            Image = newsRequest.Image
         };
-        
-        using (var ms = new MemoryStream())
-        {
-            newsRequest.Image.CopyTo(ms);
 
-            news.Image = ms.ToArray();
-        }
-        
         _db.News.Add(news);
         _db.SaveChanges();
 
